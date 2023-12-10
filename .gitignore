@@ -12,4 +12,4 @@
 #!.yarn/cache
 .pnp.*
 node_modules
-data.txt
+data*.txt
