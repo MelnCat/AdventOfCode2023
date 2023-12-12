@@ -3,7 +3,7 @@ import fs from "fs";
 const data = fs.readFileSync(new URL("data.txt", import.meta.url), "utf8");
 
 const lines = data.split(/\n\r?/).map(x => x.trim());
-
+if (lines.at(-1) === "") lines.pop();
 const grid = lines.map(x => x.split(""));
 const emptyCols = grid[0].map((x,i)=>[x,i]).filter(x => grid.every(y => y[x[1]] === ".")).map(x => x[1]);
 const emptyRows = grid.map((x,i)=>[x,i]).filter(x => x[0].every(y => y === ".")).map(x => x[1]);
