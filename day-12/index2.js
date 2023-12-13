@@ -19,9 +19,9 @@ for (const {map, springNums} of springMaps) {
 		if (str.length < springs.length) return 0;
 		if (cache[str+":"+springs]) return cache[str+":"+springs];
 		if (!str) return 0;
-		console.log(str,springs)
 		const first = str.match(/^\.*([?#]+)\.*/)[1];
 		const qn = BigInt(first.split("?").length - 1);
+		console.log(str,springs);
 		let tot = 0;
 		for (let i = 0n; i <= qn; i++) {
 			let j = 0n;
@@ -33,6 +33,7 @@ for (const {map, springNums} of springMaps) {
 			if (countStart > springs[0]) break;
 			if (countStart !== springs[0] && countStart !== 0) continue;
 			if (countStart === 0) {
+				console.log("CHECKING A 0")
 				tot += check(replaced.replace(/^\.+/, ""), springs);
 			};
 			if (countStart === springs[0]) {
@@ -41,8 +42,8 @@ for (const {map, springNums} of springMaps) {
 			}
 
 		}
-		console.log("CACHE", str,springs)
 		cache[str+":"+springs] = tot;
+		console.log("CACHED",str+":"+springs);
 		return tot;
 	}
 	const check2 = (str, springs) => {
