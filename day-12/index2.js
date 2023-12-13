@@ -1,7 +1,7 @@
 import fs from "fs";
 
-const data = fs.readFileSync(new URL("data.txt", import.meta.url), "utf8");
-
+const data = process.argv.slice(2).join(" ").split("/").join("\n") ?? fs.readFileSync(new URL("data.txt", import.meta.url), "utf8");
+console.log(data)
 const lines = data.split(/\n\r?/).map(x => x.trim());
 
 const springMaps = lines
@@ -15,12 +15,11 @@ const cache = {};
 for (const {map, springNums} of springMaps) {
 	const total = [];
 	const queue = [map];
-	console.log("CHECKING MAP")
 	const check = (str, springs) => {
 		if (str.length < springs.length) return 0;
 		if (cache[str+":"+springs]) return cache[str+":"+springs];
 		if (!str) return 0;
-		if (Math.random() > 0.99) console.log(cache)
+		console.log(str,springs)
 		const first = str.match(/^\.*([?#]+)\.*/)[1];
 		const qn = BigInt(first.split("?").length - 1);
 		let tot = 0;
@@ -42,10 +41,31 @@ for (const {map, springNums} of springMaps) {
 			}
 
 		}
+		console.log("CACHE", str,springs)
 		cache[str+":"+springs] = tot;
 		return tot;
 	}
-	realTot+=(check("?.?", [1,1]))
+	const check2 = (str, springs) => {
+		str = str.match(/\.*(.*)\.*/)[1];
+		if (cache[str+":"+springs]) return cache[str+":"+springs];
+		const split = str.split(/\.+/);
+		if (springs.length === 0) return str.includes("#") ? 0 : 1;
+		if (split.length === 1) return check(str, springs);
+		const first = split[0];
+		let acc = 0;
+		for (let i = 0; i <= springs.length; i++) {
+			const spr = springs.slice(0, i);
+			if (spr.length === 0) {
+				acc += first.includes("#") ? 0 : check2(str.replace(first, ""), springs.slice(i));
+			}
+			const c = check(first, spr);
+			if (c === 0) continue;
+			acc += c * check2(str.replace(first, ""), springs.slice(i));
+		}
+		cache[str+":"+springs] = acc;
+		return acc;
+	}
+
+	realTot+=(check2(map, springNums))
 }
 console.log(realTot);
-console.log(cache)
