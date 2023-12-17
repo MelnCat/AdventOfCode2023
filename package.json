@@ -8,6 +8,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@datastructures-js/priority-queue": "^6.3.0",
     "lodash": "^4.17.21",
     "lru-cache": "^10.1.0"
   }

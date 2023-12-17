@@ -5,6 +5,22 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
+"@datastructures-js/heap@npm:^4.3.1":
+  version: 4.3.2
+  resolution: "@datastructures-js/heap@npm:4.3.2"
+  checksum: 355caf51ddc0cf1599d93c419e5ad0a31514bef62730c25889ed66443b7747c09361857aaa1347b9f85895455fbee603c9ab386bf5301448cc7933fa3f6b9cbd
+  languageName: node
+  linkType: hard
+
+"@datastructures-js/priority-queue@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "@datastructures-js/priority-queue@npm:6.3.0"
+  dependencies:
+    "@datastructures-js/heap": "npm:^4.3.1"
+  checksum: a9a6f11778709effc81cf4af0255c29b7e0473057b1ebb0a61301f69dafc0f30f7f2f04b06122684fa63a17cbf051d7e66b49692ad6f383e59344b892e216bcc
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:^4.14.202":
   version: 4.14.202
   resolution: "@types/lodash@npm:4.14.202"
@@ -25,6 +41,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "advent-of-code-2023@workspace:."
   dependencies:
+    "@datastructures-js/priority-queue": "npm:^6.3.0"
     "@types/lodash": "npm:^4.14.202"
     "@types/node": "npm:^20.10.2"
     lodash: "npm:^4.17.21"
