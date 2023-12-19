@@ -45,5 +45,6 @@ while (!q.isEmpty()) {
 	}
 	//console.log(nodes.length, q.size());
 }
+console.log(idx[grid.length - 1][grid[0].length - 1]);
 //console.log(grid.length - 1,grid[0].length - 1)
 //console.log(idx[grid.length - 1][grid[0].length - 1].flat(3));

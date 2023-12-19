@@ -46,6 +46,7 @@ __metadata:
     "@types/node": "npm:^20.10.2"
     lodash: "npm:^4.17.21"
     lru-cache: "npm:^10.1.0"
+    polygon-clipping: "npm:^0.15.6"
     typescript: "npm:^5.3.3"
   languageName: unknown
   linkType: soft
@@ -61,6 +62,22 @@ __metadata:
   version: 10.1.0
   resolution: "lru-cache@npm:10.1.0"
   checksum: 778bc8b2626daccd75f24c4b4d10632496e21ba064b126f526c626fbdbc5b28c472013fccd45d7646b9e1ef052444824854aed617b59cd570d01a8b7d651fc1e
+  languageName: node
+  linkType: hard
+
+"polygon-clipping@npm:^0.15.6":
+  version: 0.15.6
+  resolution: "polygon-clipping@npm:0.15.6"
+  dependencies:
+    splaytree: "npm:^3.1.0"
+  checksum: eb5fac1733047d06450a23e828e730acee3d4eee3ed5fcafc5280d993158108866c84fb887b15a972d6a15518d9706dfd9318e6dfc79c47e2e8ec8ab4f557d53
+  languageName: node
+  linkType: hard
+
+"splaytree@npm:^3.1.0":
+  version: 3.1.2
+  resolution: "splaytree@npm:3.1.2"
+  checksum: ba82da4e4185d692eb2b1c9e000a9dde6cd713ec447f5c90ec97264ce9de19ba1f5f90fbef8a9ffa37bbbe2e9f4b031c6ee45d4119acbf1cddb93112ec5ecf86
   languageName: node
   linkType: hard
 
