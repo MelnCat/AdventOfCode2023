@@ -10,11 +10,11 @@ const start = [
 	grid.find(x => x.includes("S")).indexOf("S"),
 ];
 
-const map = {};
+const map = fs.existsSync("./data221.json") ? JSON.parse(fs.readFileSync("./data221.json", "utf8")) : {};
 let list = [];
 let plots = [start];
 let seen = new Set();
-for (let i = 0; i < 100; i++) {
+if (!fs.existsSync("./data221.json")) {for (let i = 0; i < 2000; i++) {
 	let toAdd = [];
 	for (const plot of plots) {
 		for (const adj of [
@@ -46,15 +46,17 @@ for (let i = 0; i < 100; i++) {
 	}
 	plots = toAdd;
 }
+fs.writeFileSync("./data221.json", JSON.stringify(map))};
 let n = 26501365;
+const mod = (n + 1) % 2;/*
 console.log(
 	Object.values(map)
 		.filter(x => x % 2 === 1)
 		.filter(x => x <= n).length
-);
+);*/
 
 let map2 = {};
-let acc = 0;
+let acc = 0n;
 const predict = (known, di, dj) => {
 	if (di <= 3 && di >= -3) {
 		if (known[di]?.[dj] !== undefined) return known[di+","+dj];
@@ -96,14 +98,16 @@ const findDj = (known, di, max) => {
 for (let i = 0; i < grid.length; i++) {
 	for (let j = 0; j < grid[0].length; j++) {
 		if (grid[i][j] !== "." && grid[i][j] !== "S") continue;
+		console.log(i,j)
 		const first = map[`${i},${j}`];
 		if (first === undefined) continue;
 		let known = {};
-		let l = 0;
+		let l = 0n;
 		for (let v = -3; v <= 3; v++) {
 			for (let w = -3; w <= 3; w++) {
 				known[v+","+w] =
 					map[`${i + grid.length * v},${j + grid[0].length * w}`];
+					if (known[v+","+w] === undefined) throw new Error("e")
 			}
 		}
 		let di = 0;
@@ -115,18 +119,6 @@ for (let i = 0; i < grid.length; i++) {
 				predicted[1] < predicted[0]
 			)
 				break;
-			//	if (i === 7 && j === 0) console.log(predicted);
-			/*let ch = 0;
-			let works = []
-			for (let dj = predicted[0]; dj <= predicted[1]; dj++) {
-				const p = predict(known, di, dj);
-				if (p % 2 === 1 && p <= n) {
-					works.push(p);
-					//if (i === 7 && j === 0) console.log(di, dj, p, map[`${i + grid.length * di},${j + grid[0].length * dj}`]);
-					l++;
-					ch++;
-				}
-			}*/
 			let first2;
 			for (let dj = predicted[0]; dj <= predicted[1]; dj++) {
 				const p = predict(known, di, dj);
@@ -143,9 +135,9 @@ for (let i = 0; i < grid.length; i++) {
 					break;
 				}
 			}
-			const plom = isNaN(first2) || isNaN(last) ? 0 : predict(known, di, first2) % 2 === 1 ? (Math.ceil((last - first2 + 1) / 2)) : Math.floor(((last - first2 + 1) / 2));
+			const plom = isNaN(first2) || isNaN(last) ? 0 : predict(known, di, first2) % 2 === mod ? (Math.ceil((last - first2 + 1) / 2)) : Math.floor(((last - first2 + 1) / 2));
 			di++;
-			if (!isNaN(plom)) l += plom;
+			if (!isNaN(plom)) l += BigInt(plom);
 		}
 		di = -1;
 		while (true) {
@@ -156,7 +148,6 @@ for (let i = 0; i < grid.length; i++) {
 				predicted[1] < predicted[0]
 			)
 				break;
-			//if (i === 7 && j === 0) console.log(predicted);
 			let first2;
 			for (let dj = predicted[0]; dj <= predicted[1]; dj++) {
 				const p = predict(known, di, dj);
@@ -173,41 +164,14 @@ for (let i = 0; i < grid.length; i++) {
 					break;
 				}
 			}
-			const plom = isNaN(first2) || isNaN(last) ? 0 : predict(known, di, first2) % 2 === 1 ? (Math.ceil((last - first2 + 1) / 2)) : Math.floor(((last - first2 + 1) / 2));
-			if (!isNaN(plom)) l += plom;
+			const plom = isNaN(first2) || isNaN(last) ? 0 : predict(known, di, first2) % 2 === mod ? (Math.ceil((last - first2 + 1) / 2)) : Math.floor(((last - first2 + 1) / 2));
+			if (!isNaN(plom)) l += BigInt(plom);
 			di--;
 		}
-		acc += l;
-		//console.log(l, real, l === real ? [] : [i, j], map[`${i},${j}`])
+		
+		acc += BigInt(l);
 	}
 }
 console.log(acc);
-/*
-let p = [7, 2];
-const arr = [[], [], [], [], [], [], [], [], []];
-
-for (let v = -4; v <= 4; v++) {
-	for (let w = -4; w <= 4; w++) {
-		arr[v+4][w+4] =
-			map[`${p[0] + grid.length * v},${p[1] + grid[0].length * w}`];
-	}
-}
-let known = {};
-for (let v = -3; v <= 3; v++) {
-	for (let w = -3; w <= 3; w++) {
-		known[v] ??= {};
-		known[v][w] =
-			map[`${p[0] + grid.length * v},${p[1] + grid[0].length * w}`];
-	}
-}
-
-console.log([[...Array(9)].map((x,i)=>i-4),...arr].map(x => x.map(y=>(y+"").padStart(4, " ")).join(" ")).join("\n"));
-const arr2 = [[], [], [], [], [], [], [], [], []];
-for (let v = -4; v <= 4; v++) {
-	for (let w = -4; w <= 4; w++) {
-		arr2[v+4][w+4] =
-			predict(known, v, w);
-	}
-}
-console.log("-")
-console.log([[...Array(9)].map((x,i)=>i-4),...arr2].map(x => x.map(y=>(y+"").padStart(4, " ")).join(" ")).join("\n"));*/
+console.log(acc);
+console.log(acc);
