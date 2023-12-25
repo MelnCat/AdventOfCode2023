@@ -44,12 +44,30 @@ __metadata:
     "@datastructures-js/priority-queue": "npm:^6.3.0"
     "@types/lodash": "npm:^4.14.202"
     "@types/node": "npm:^20.10.2"
+    js-graph-algorithms: "npm:^1.0.18"
     lodash: "npm:^4.17.21"
     lru-cache: "npm:^10.1.0"
+    minimum-cut: "npm:^1.0.2"
     polygon-clipping: "npm:^0.15.6"
     typescript: "npm:^5.3.3"
   languageName: unknown
   linkType: soft
+
+"clone@npm:^1.0.2":
+  version: 1.0.4
+  resolution: "clone@npm:1.0.4"
+  checksum: 2176952b3649293473999a95d7bebfc9dc96410f6cbd3d2595cf12fd401f63a4bf41a7adbfd3ab2ff09ed60cb9870c58c6acdd18b87767366fabfc163700f13b
+  languageName: node
+  linkType: hard
+
+"js-graph-algorithms@npm:^1.0.18":
+  version: 1.0.18
+  resolution: "js-graph-algorithms@npm:1.0.18"
+  bin:
+    js-graphs: ./src/jsgraphs.js
+  checksum: d5ee2b39d4c57776847b38f9194d55429ffbd6b5b41d7bae821abb8d6f27ed0e03516944ddb17cfa351dff5f083678c6400d24aeb7deb4b71075a3ec5372833b
+  languageName: node
+  linkType: hard
 
 "lodash@npm:^4.17.21":
   version: 4.17.21
@@ -65,12 +83,40 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimum-cut@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "minimum-cut@npm:1.0.2"
+  dependencies:
+    clone: "npm:^1.0.2"
+    random-number: "npm:0.0.1"
+  bin:
+    minimum-cut: bin/min-cut.js
+  checksum: 3fcf8f2c017f8f657614ddb63ab8f94fdaad8f98836300cce6d82c6561773b85fd0b49fead5623b71e9c87149192aeaaa30e7907564c243fa751491e11eaa06d
+  languageName: node
+  linkType: hard
+
+"object-keys@npm:~0.4.0":
+  version: 0.4.0
+  resolution: "object-keys@npm:0.4.0"
+  checksum: 91b5eefd2e0374b3d19000d4ea21d94b9f616c28a1e58f1c4f3e1fd6486a9f53ac00aa10e5ef85536be477dbd0f506bdeee6418e5fc86cc91ab0748655b08f5b
+  languageName: node
+  linkType: hard
+
 "polygon-clipping@npm:^0.15.6":
   version: 0.15.6
   resolution: "polygon-clipping@npm:0.15.6"
   dependencies:
     splaytree: "npm:^3.1.0"
   checksum: eb5fac1733047d06450a23e828e730acee3d4eee3ed5fcafc5280d993158108866c84fb887b15a972d6a15518d9706dfd9318e6dfc79c47e2e8ec8ab4f557d53
+  languageName: node
+  linkType: hard
+
+"random-number@npm:0.0.1":
+  version: 0.0.1
+  resolution: "random-number@npm:0.0.1"
+  dependencies:
+    xtend: "npm:~2.1.1"
+  checksum: 9ba18b7cdbaaecad81806c716c954e246b33b46394e80969fed134e17a7976efb3d8de02bbec13d16f8303018b277a1c0b32a140763774a66ffcd851316eec58
   languageName: node
   linkType: hard
 
@@ -105,5 +151,14 @@ __metadata:
   version: 5.26.5
   resolution: "undici-types@npm:5.26.5"
   checksum: bb673d7876c2d411b6eb6c560e0c571eef4a01c1c19925175d16e3a30c4c428181fb8d7ae802a261f283e4166a0ac435e2f505743aa9e45d893f9a3df017b501
+  languageName: node
+  linkType: hard
+
+"xtend@npm:~2.1.1":
+  version: 2.1.2
+  resolution: "xtend@npm:2.1.2"
+  dependencies:
+    object-keys: "npm:~0.4.0"
+  checksum: 5b0289152e845041cfcb07d5fb31873a71e4fa9c0279299f9cce0e2a210a0177d071aac48546c998df2a44ff2c19d1cde8a9ab893e27192a0c2061c2837d8cb5
   languageName: node
   linkType: hard
